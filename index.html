@@ -9,11 +9,8 @@
 		var baseUrl = "https://api.dialogflow.com/v1/";
 
 		$(document).ready(function() {
-			$("#input").keydown(function(event) {
-				if (event.which == 13) {
-					event.preventDefault();
-					send();
-				}
+			$("#sub").click(function(event) {
+				send();
 			});
 			$("#rec").click(function(event) {
 				switchRecognition();
@@ -106,6 +103,7 @@
 <body>
 	<div>
 		<input id="input" type="text"/> 
+		<button id="sub">Send</button>
 		<button id="rec">Speak</button>
 		<br>Response<br> <textarea id="response" cols="40" rows="20" ></textarea>
 	</div>
