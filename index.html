@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>API Example</title>
+	<title>CricChat</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript">
@@ -9,7 +9,7 @@
 		var baseUrl = "https://api.dialogflow.com/v1/";
 
 		$(document).ready(function() {
-			$("#input").keypress(function(event) {
+			$("#input").keydown(function(event) {
 				if (event.which == 13) {
 					event.preventDefault();
 					send();
@@ -105,7 +105,7 @@
 </head>
 <body>
 	<div>
-		<input id="input" type="text"> 
+		<input id="input" type="text"/> 
 		<button id="rec">Speak</button>
 		<br>Response<br> <textarea id="response" cols="40" rows="20" ></textarea>
 	</div>
