@@ -9,6 +9,12 @@
 		var baseUrl = "https://api.dialogflow.com/v1/";
 
 		$(document).ready(function() {
+			$("#input").keydown(function(event) {
+				if (event.which == 13) {
+					event.preventDefault();
+					send();
+				}
+			});
 			$("#sub").click(function(event) {
 				send();
 			});
@@ -88,7 +94,7 @@
 		}
 
 		function setResponse(val) {
-			$("#response").text($("#response").text()+val+"\r\n");
+			$("#response").text($("#response").text()+val+"\r\n"+"testing");
 		}
 
 	</script>
