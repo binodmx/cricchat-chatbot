@@ -1,8 +1,11 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<title>CricChat</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Type" content="text/html" charset=utf-8/>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/style.css">
 	<script type="text/javascript">
 
 		var accessToken = "13ce1d0fe0dd48889be98dba23a275e1";
@@ -72,6 +75,7 @@
 
 		function send() {
 			var text = $("#input").val();
+			setResponseArea("you last",text);
 			setResponse("You: " + text);
 			$.ajax({
 				type: "POST",
@@ -84,6 +88,7 @@
 				data: JSON.stringify({ query: text, lang: "en", sessionId: "somerandomthing" }),
 
 				success: function(data) {
+					setResponseArea("friend last",data.result.fulfillment.speech);
 					setResponse("CricChat: " + data.result.fulfillment.speech);
 				},
 				error: function() {
@@ -95,23 +100,55 @@
 
 		function setResponse(val) {
 			$("#response").text($("#response").text()+val+"\r\n");
+			document.getElementById('input').value = '';
+			var m = document.querySelector('#response-area');
+			m.scrollTop = m.scrollHeight - m.clientHeight;
 		}
 
+		function setResponseArea(sender, response) {
+			var div = document.createElement('div');
+			var d = new Date();
+			var tim = d.getHours()+":"+d.getMinutes();
+			div.className = 'chat-content clearfix';
+			div.innerHTML =
+				'<span class="'+sender+'">\
+					'+response+'\
+					<span class="time">'+tim+'</span>\
+				</span>';
+			document.getElementById('response-area').appendChild(div);
+		}
 	</script>
-	<style type="text/css">
-		body { width: 500px; margin: 0 auto; text-align: center; margin-top: 20px; }
-		div {  position: absolute; }
-		input { width: 400px; }
-		button { width: 50px; }
-		textarea { width: 100%; }
-	</style>
 </head>
 <body>
-	<div>
-		<input id="input" type="text"/> 
-		<button id="sub">Send</button>
-		<button id="rec">Speak</button>
-		<br>Response<br> <textarea id="response" cols="40" rows="20" ></textarea>
+	<div class="container">
+		<div class="app">
+			<div class="head clearfix">
+				<span class="messages-notification">
+					<i class="fa fa-comments-o"></i>
+				</span>
+				<span class="title">CRICCHAT</span>
+			</div>
+
+			<div class="body">
+				<div class="chat-messages" >
+					<div class="chat" >
+						<div id="response-area" class="chat-content clearfix" style="overflow-y: scroll;  height:500px">
+							<!Response-Area>									
+						</div>
+						<div class="msg-box">
+							<input id="input" type="text" class="ip-msg" placeholder="Type a message"/>
+							<span class="btn-group">
+								<i id="sub" class="fa fa-paper-plane"></i>
+								<i id="rec" class="fa fa-microphone"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+	<textarea id="response" cols="40" rows="20" hidden></textarea>
 </body>
 </html>
+
+
