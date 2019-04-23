@@ -6,8 +6,8 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="icon" href="imgs/icon.png">
 	<script type="text/javascript">
-
 		var accessToken = "13ce1d0fe0dd48889be98dba23a275e1";
 		var baseUrl = "https://api.dialogflow.com/v1/";
 
@@ -70,7 +70,7 @@
 		}
 
 		function updateRec() {
-			$("#rec").text(recognition ? "Stop" : "Speak");
+			$("#rec").class(recognition ? "fa fa-microphone-slash" : "fa fa-microphone");
 		}
 
 		function send() {
@@ -108,7 +108,7 @@
 		function setResponseArea(sender, response) {
 			var div = document.createElement('div');
 			var d = new Date();
-			var tim = d.getHours()+":"+d.getMinutes();
+			var tim = d.getHours()+":"+checkMinutes(d.getMinutes());
 			div.className = 'chat-content clearfix';
 			div.innerHTML =
 				'<span class="'+sender+'">\
@@ -116,6 +116,13 @@
 					<span class="time">'+tim+'</span>\
 				</span>';
 			document.getElementById('response-area').appendChild(div);
+		}
+
+		function checkMinutes(i) {
+			if (i < 10) {
+				i = "0" + i;
+			}
+			return i;
 		}
 	</script>
 </head>
